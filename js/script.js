@@ -221,39 +221,35 @@ window.addEventListener('DOMContentLoaded', () => {
         next = document.querySelector('.offer__slider-next'),
         current = document.querySelector('#current'),
         total = document.querySelector('#total'),
-        slide = document.querySelector('.offer__slide');
+        slides = document.querySelectorAll('.offer__slide');
     
     
     const arrSliders = [];
+    let slideIndex = 1;
+    showSlider(slideIndex);
    
-    fetch('http://localhost:3000/sliders')
-        .then(response=> response.json())
-        .then(data => {
-            data.forEach(el => {
-                arrSliders.push(el);
-            })
-            
-            total.innerText = '0' + (showSlider.length+2);
-            console.log(arrSliders);
-            current.innerText = '01';
-            showSlider(arrSliders[0].img, arrSliders[0].altimg);
-            //return arrSliders;
-        })
+    
     
     function showNums(n) {
-        let num = +current.innerText - 1;
-        if (num == 0 && n==-1) {
-            num=3;
-        } else if(n==-1) num--;  
-        if (num == 3 && n==0) {
-            num = 0;
-        } else if(n==0) num++;
-        showSlider(arrSliders[num].img, arrSliders[num].altimg);
-        current.innerText = '0'+(num+1);
+        if (slideIndex == 1 && n==-1) {
+            slideIndex=4;
+        } else if(n==-1) slideIndex--;  
+        if (slideIndex == 4 && n==0) {
+            slideIndex = 1;
+        } else if(n==0) slideIndex++;
+        showSlider(slideIndex);
+        current.innerText = '0'+slideIndex;
     }
-    function showSlider(img, altimg) {
-        slide.innerHTML = '';
-        slide.innerHTML = `<img src='${img}' alt='${altimg}'></img>`;
+    function showSlider(i) {
+        slides.forEach(slide => {
+            if (slide.classList.contains("show")) {
+                slide.classList.remove("show");
+                slide.classList.add("hide");
+            }
+            slide.classList.add("hide");
+        })
+        slides[i-1].classList.remove("hide");
+        slides[i-1].classList.add("show");
         
     }
     prev.addEventListener('click', (e) => {
