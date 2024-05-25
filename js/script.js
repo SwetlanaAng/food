@@ -222,13 +222,10 @@ window.addEventListener('DOMContentLoaded', () => {
         current = document.querySelector('#current'),
         total = document.querySelector('#total'),
         slides = document.querySelectorAll('.offer__slide');
-    
-    
-    const arrSliders = [];
     let slideIndex = 1;
-    showSlider(slideIndex);
-   
     
+    showSlider(slideIndex);
+    total.innerText = '0' + slides.length;
     
     function showNums(n) {
         if (slideIndex == 1 && n==-1) {
@@ -240,6 +237,7 @@ window.addEventListener('DOMContentLoaded', () => {
         showSlider(slideIndex);
         current.innerText = '0'+slideIndex;
     }
+
     function showSlider(i) {
         slides.forEach(slide => {
             if (slide.classList.contains("show")) {
@@ -249,16 +247,14 @@ window.addEventListener('DOMContentLoaded', () => {
             slide.classList.add("hide");
         })
         slides[i-1].classList.remove("hide");
-        slides[i-1].classList.add("show");
-        
+        slides[i-1].classList.add("show");   
     }
+
     prev.addEventListener('click', (e) => {
-        showNums(-1);
-        
+        showNums(-1);   
     })
+
     next.addEventListener('click', (e) => {
-        showNums(0);
-        
-    })
-    
+        showNums(0);     
+    })    
 })
