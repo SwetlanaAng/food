@@ -221,40 +221,63 @@ window.addEventListener('DOMContentLoaded', () => {
         next = document.querySelector('.offer__slider-next'),
         current = document.querySelector('#current'),
         total = document.querySelector('#total'),
-        slides = document.querySelectorAll('.offer__slide');
+        slides = document.querySelectorAll('.offer__slide'),
+        slidesField = document.querySelector('.offer__slider-inner'),
+        slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+        width = window.getComputedStyle(slidesWrapper).width;
     let slideIndex = 1;
-    
-    showSlider(slideIndex);
+    let offset = 0;
+
     total.innerText = '0' + slides.length;
+    current.innerText = '0'+slideIndex;
+
+    slidesField.style.width = 100 * slides.length + '%';
+    slidesField.style.display = 'flex';
+    slidesField.style.transition = '0.5s all';
+
+    slidesWrapper.style.overflow = 'hidden';
+
+    slides.forEach(slide => {
+        slide.style.width = width;
+    })
+
+    slidesField.style.position = 'relative';
+
+
+    showSlider(slideIndex);
+    
     
     function showNums(n) {
         if (slideIndex == 1 && n==-1) {
-            slideIndex=4;
+            slideIndex=slides.length;
         } else if(n==-1) slideIndex--;  
-        if (slideIndex == 4 && n==0) {
+        if (slideIndex == slides.length && n==0) {
             slideIndex = 1;
         } else if(n==0) slideIndex++;
-        showSlider(slideIndex);
+        showSlider(n);
         current.innerText = '0'+slideIndex;
     }
 
-    function showSlider(i) {
-        slides.forEach(slide => {
-            if (slide.classList.contains("show")) {
-                slide.classList.remove("show");
-                slide.classList.add("hide");
-            }
-            slide.classList.add("hide");
-        })
-        slides[i-1].classList.remove("hide");
-        slides[i-1].classList.add("show");   
+    function showSlider(n) {
+        if (offset == 0 && n==-1) {
+            offset = deleteNotDigits(width) * (slides.length - 1);
+        } else if(n==-1) offset -= deleteNotDigits(width);  
+        if (offset == deleteNotDigits(width) * (slides.length - 1) && n==0) {
+             offset = 0;
+        } else if (n == 0) offset += deleteNotDigits(width);
+        slidesField.style.transform = `translateX(-${offset}px)`;
+    }
+
+    function deleteNotDigits(str) {
+        return +str.replace(/\D/g,'')
     }
 
     prev.addEventListener('click', (e) => {
-        showNums(-1);   
+        showNums(-1); 
     })
 
     next.addEventListener('click', (e) => {
         showNums(0);     
-    })    
+    }) 
+    
 })
