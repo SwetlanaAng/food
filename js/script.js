@@ -218,6 +218,7 @@ window.addEventListener('DOMContentLoaded', () => {
         .then(res => console.log(res)); */
     // слайдер
     const prev = document.querySelector('.offer__slider-prev'),
+        slider = document.querySelector('.offer__slider'),
         next = document.querySelector('.offer__slider-next'),
         current = document.querySelector('#current'),
         total = document.querySelector('#total'),
@@ -241,13 +242,52 @@ window.addEventListener('DOMContentLoaded', () => {
         slide.style.width = width;
     })
 
-    slidesField.style.position = 'relative';
-
-
+    slider.style.position = 'relative';
     showSlider(slideIndex);
     
+    const indicators = document.createElement('ol'),
+        dots = [];
+
+    indicators.classList.add('carousel-indicators');
+    indicators.style.cssText = `
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 15;
+        display: flex;
+        justify-content: center;
+        margin-right: 15%;
+        margin-left: 15%;
+        list-style: none;`;
+    slider.append(indicators);
+
+
+    for (let i = 0; i < slides.length; i++){
+        const dot = document.createElement('li');
+        dot.setAttribute('data-slide-to', i + 1);
+        dot.style.cssText = `
+        box-sizing: content-box;
+        flex: 0 1 auto;
+        width: 30px;
+        height: 6px;
+        margin-right: 3px;
+        margin-left: 3px;
+        cursor: pointer;
+        background-color: #fff;
+        background-clip: padding-box;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        opacity: .5;
+        transition: opacity .6s ease;`;
+        if (i == 0) {
+            dot.style.opacity = 1;
+        }
+        indicators.append(dot);
+        dots.push(dot);
+    }
     
-    function showNums(n) {
+    function showIndexesAndDot(n) {
         if (slideIndex == 1 && n==-1) {
             slideIndex=slides.length;
         } else if(n==-1) slideIndex--;  
@@ -255,7 +295,14 @@ window.addEventListener('DOMContentLoaded', () => {
             slideIndex = 1;
         } else if(n==0) slideIndex++;
         showSlider(n);
-        current.innerText = '0'+slideIndex;
+        dotActive(slideIndex - 1, dots);
+        current.innerText = '0' + slideIndex;
+    }
+    function dotActive(d,arr) {
+        arr.forEach(dot => {
+            dot.style.opacity = '.5';
+        })
+        arr[d].style.opacity = 1
     }
 
     function showSlider(n) {
@@ -273,11 +320,21 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     prev.addEventListener('click', (e) => {
-        showNums(-1); 
+        showIndexesAndDot(-1); 
     })
 
     next.addEventListener('click', (e) => {
-        showNums(0);     
+        showIndexesAndDot(0);     
     }) 
-    
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            const slideTo = e.target.getAttribute('data-slide-to');
+            slideIndex = slideTo;
+            offset = deleteNotDigits(width) * (slideTo - 1);
+            slidesField.style.transform = `translateX(-${offset}px)`;
+            dotActive(slideIndex - 1, dots);
+            current.innerText = '0' + slideIndex;
+        })
+    })   
 })
