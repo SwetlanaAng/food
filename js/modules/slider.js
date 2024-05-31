@@ -1,4 +1,5 @@
-function slider({ prevSelector, sliderSelector, nextSelector, currentSelector, totalSelector, slidesSelector, slidesFieldSelector, slidesWrapperSelector }) {
+function slider({ prevSelector, sliderSelector, nextSelector, currentSelector, totalSelector, slidesSelector,
+slidesFieldSelector, slidesWrapperSelector }) {
   const prev = document.querySelector(prevSelector),
         slider = document.querySelector(sliderSelector),
         next = document.querySelector(nextSelector),

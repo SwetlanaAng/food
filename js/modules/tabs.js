@@ -6,6 +6,7 @@ function tabs(tabsSelector, tabHeaderSelector, itemsSelector, activeClass) {
     function showTab(i) {
         tabs[i].classList.remove('hide');
         tabs[i].classList.add('show');
+        
     }
 
     function hideTabs() {
@@ -18,8 +19,9 @@ function tabs(tabsSelector, tabHeaderSelector, itemsSelector, activeClass) {
     showTab(0);
     
     tabHeader.addEventListener('click', (e) => {
-        if (e.target && e.target.classList.contains(itemsSelector)) {
-            items.forEach((item,i) => {
+        
+        if (e.target && e.target.classList.contains(itemsSelector.slice(1))) {
+            items.forEach((item, i) => {
                 item.classList.remove(activeClass);
                 if (item == e.target) {
                     e.target.classList.add(activeClass);
