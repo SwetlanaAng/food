@@ -11,10 +11,9 @@ function cards() {
         el.classList.add('menu__item');
         el.innerHTML = createEl(obje);
         container.append(el);
-    }) 
+        }) 
     })
-    
-    
+     
     function createEl(obj) {
             return `<div class="menu__item">
                     <img src="${obj["img"]}" alt="vegy">

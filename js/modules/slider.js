@@ -1,6 +1,4 @@
-function slider({ prevSelector, sliderSelector,
-    nextSelector, currentSelector, totalSelector, slidesSelector,
-    slidesFieldSelector, slidesWrapperSelector }) {
+function slider({ prevSelector, sliderSelector, nextSelector, currentSelector, totalSelector, slidesSelector, slidesFieldSelector, slidesWrapperSelector }) {
   const prev = document.querySelector(prevSelector),
         slider = document.querySelector(sliderSelector),
         next = document.querySelector(nextSelector),
@@ -45,7 +43,6 @@ function slider({ prevSelector, sliderSelector,
         margin-left: 15%;
         list-style: none;`;
     slider.append(indicators);
-
 
     for (let i = 0; i < slides.length; i++){
         const dot = document.createElement('li');

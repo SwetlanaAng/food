@@ -1,5 +1,4 @@
 import { closeModal} from "./modal";
-//import { } from '';
 
 function forms(formSelector) {
     const forms = document.querySelectorAll(formSelector);
@@ -21,7 +20,6 @@ function forms(formSelector) {
         return await res.json()
     }
     
-    
     function bindPostData(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -29,9 +27,7 @@ function forms(formSelector) {
             statusMessage.classList.add('status');
             statusMessage.textContent = message.loading;
             form.append(statusMessage);
-            
-           
-            
+
             const formData = new FormData(form);
             
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
@@ -40,11 +36,9 @@ function forms(formSelector) {
             .then(data => showThanksModal(message.success))
             .catch(()=>showThanksModal(message.failure));
 
-        
             form.reset();
             setTimeout(() => statusMessage.textContent = '', 3000);
-        })
-        
+        })    
     }
     forms.forEach(item => bindPostData(item));
     function showThanksModal(message) {

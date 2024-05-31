@@ -43,11 +43,8 @@ function setTimer(endTime) {
             'hours': hours,
             'minutes': minutes,
             'seconds': seconds
-        }
-        
+        }   
     }
     setTimer(deadLine);
-    
-
 }
 export default timer;

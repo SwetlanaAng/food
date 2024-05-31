@@ -25,6 +25,5 @@ window.addEventListener('DOMContentLoaded', () => {
         slidesWrapperSelector:'.offer__slider-wrapper' 
     });
     tabs('.tabcontent', '.tabheader', '.tabheader__item', 'tabheader__item_active');
-    timer('2024-06-09');
-    
+    timer('2024-06-09');   
 })

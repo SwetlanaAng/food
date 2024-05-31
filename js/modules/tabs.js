@@ -2,8 +2,7 @@ function tabs(tabsSelector, tabHeaderSelector, itemsSelector, activeClass) {
     const tabs = document.querySelectorAll(tabsSelector),
         tabHeader = document.querySelector(tabHeaderSelector),
         items = tabHeader.querySelectorAll(itemsSelector);
-        
-    
+   
     function showTab(i) {
         tabs[i].classList.remove('hide');
         tabs[i].classList.add('show');
@@ -30,6 +29,5 @@ function tabs(tabsSelector, tabHeaderSelector, itemsSelector, activeClass) {
             })
         }
     })
-
 }
 export default tabs;

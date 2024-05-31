@@ -22,8 +22,7 @@ function modal(triggerSeletor, modalSelector, showModalSoon) {
     btns.forEach((btn) => {
         btn.addEventListener('click', ()=>openModal(modalSelector, showModalSoon));
     }) 
-    
-    
+     
     modal.addEventListener('click', (event) => {
         if (event.target.classList.contains('modal') || event.target.getAttribute('data-close')=='') {
             closeModal(modalSelector);
